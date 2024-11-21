@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewModels="clr-namespace:SubsConverter.ViewModels;assembly=SubsConverter"
+        x:Class="SubsConverter.Views.MainWindow"
+        Title="Subtitle Converter" Width="600" Height="350" CanResize="False"
+        TransparencyLevelHint="AcrylicBlur"
+        Background="Transparent"
+        x:DataType="viewModels:MainWindowViewModel"
+        Icon="/Assets/icon.ico"
+        DragDrop.AllowDrop="True">
+
+  <!-- Set the DataContext for the window -->
+  <Window.DataContext>
+    <viewModels:MainWindowViewModel />
+  </Window.DataContext>
+  <!--acrylic style transparency for the whole window-->
+  <Panel>
+    <ExperimentalAcrylicBorder IsHitTestVisible="False">
+      <ExperimentalAcrylicBorder.Material>
+        <ExperimentalAcrylicMaterial
+            BackgroundSource="Digger"
+            TintColor="Black"
+            TintOpacity="1"
+            MaterialOpacity="0.65" />
+      </ExperimentalAcrylicBorder.Material>
+    </ExperimentalAcrylicBorder>
+    <!--actual content-->
+    <Grid  x:Name="MainGrid" ColumnDefinitions="Auto, Auto, Auto" RowDefinitions="Auto, Auto, Auto, Auto">
+
+      <!-- Button bound to the OpenFileCommand -->
+      <Button Grid.Row="0" Grid.Column="0" Content="Επιλογή Αρχείου/Αρχείων" Command="{Binding OpenFilesAsync}" Margin="10"/>
+      <!-- Button bound to the ConvertCommand -->
+      <Button Grid.Row="0" Grid.Column="1"  Content="Μετατροπή σε UTF-8" Command="{Binding ConvertFilesAsync}" Margin="10"/>
+      <!-- Button bound to the ClearCommand -->
+      <Button Grid.Row="0" Grid.Column="2"  Content="Καθαρισμός" Command="{Binding ClearFiles}" Margin="10"/>
+
+      <ScrollViewer Grid.Row="4" Grid.ColumnSpan="3"  Height="250">
+        <TextBlock Text="{Binding Status}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10"/>
+      </ScrollViewer>
+    </Grid>
+  </Panel>
+</Window>
